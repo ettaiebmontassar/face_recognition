@@ -13,7 +13,7 @@ def preprocess_image(image_path):
     
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     face_cascade = cv2.CascadeClassifier('models/haarcascade_frontalface_default.xml')
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)  # Ajustez ces paramètres
+    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.3, minNeighbors=5)
     if len(faces) == 0:
         print("No faces detected")
         return None
@@ -40,7 +40,8 @@ def create_embeddings():
             if len(embeddings) == 0:
                 print(f"No embeddings generated for {filename}")
                 continue
-            known_faces[filename] = embeddings[0]
+            name = os.path.splitext(filename)[0]
+            known_faces[name] = embeddings[0]
             print(f"Processed {filename}")
 
     with open('models/known_faces_embeddings.pkl', 'wb') as file:

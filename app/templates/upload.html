@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Upload Image</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Company Logo" class="logo">
-        <h1>Upload an Image</h1>
+        <h1>Upload Image for Face Recognition</h1>
         <form action="{{ url_for('main.upload_image') }}" method="post" enctype="multipart/form-data">
-            <input type="file" name="file">
+            <input type="file" name="file" accept="image/*">
             <input type="submit" value="Upload">
         </form>
     </div>

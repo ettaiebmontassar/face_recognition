@@ -2,20 +2,38 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Face Recognition Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition Result</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
     <div class="container">
-        <h1>Face Recognition Results</h1>
-        <img src="{{ url_for('static', filename='results/' ~ filename) }}" alt="Processed Image" class="result-image">
-        <h2>Identified Faces:</h2>
-        <ul>
-            {% for face, distance in identified_faces %}
-            <li>{{ face }} (Distance: {{ distance }})</li>
-            {% endfor %}
-        </ul>
-        <a href="{{ url_for('main.upload') }}" class="btn">Upload another image</a>
+        <h1>Face Recognition Result</h1>
+        <div class="result-image-container">
+            <img src="{{ url_for('static', filename='results/' + filename) }}" alt="Result Image" class="result-image">
+        </div>
+        <div class="result-details">
+            <h2>Identified Faces:</h2>
+            <table class="result-table">
+                <thead>
+                    <tr>
+                        <th>Face</th>
+                        <th>Distance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for face, distance in identified_faces %}
+                    <tr>
+                        <td>{{ face }}</td>
+                        <td>{{ '%.5f' | format(distance) }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="upload-again">
+            <a href="{{ url_for('main.upload') }}" class="btn">Upload another image</a>
+        </div>
     </div>
 </body>
 </html>

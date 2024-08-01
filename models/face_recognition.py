@@ -35,11 +35,17 @@ def load_known_faces_embeddings():
     return known_faces
 
 def compare_faces(known_faces, face_embedding, threshold=0.6):
+    min_distance = float('inf')
+    identity = "Unknown"
     for name, known_embedding in known_faces.items():
         distance = np.linalg.norm(known_embedding - face_embedding)
-        if distance < threshold:
-            return name, distance
-    return "Unknown", None
+        if distance < min_distance:
+            min_distance = distance
+            identity = name
+    if min_distance < threshold:
+        return identity, min_distance
+    else:
+        return "Unknown", None
 
 def process_image(image_path, model):
     try:
@@ -96,8 +102,6 @@ def process_image(image_path, model):
     except Exception as e:
         print(f"Error processing image: {e}")
         return None, None
-
-
 
 if __name__ == "__main__":
     test_image_path = 'uploads/test_image.jpg'
